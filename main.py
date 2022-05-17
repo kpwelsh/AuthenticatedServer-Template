@@ -51,8 +51,7 @@ def record():
         
 @app.route('/listRecords')
 @jwt_required()
-def listRecords(name):
-    print('listing records', name)
+def listRecords():
     return jsonify(
         names = ['a', 'b', 'c']
     )
