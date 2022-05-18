@@ -36,18 +36,21 @@ def deleteRecord(name):
 
 def getRecord(name):
     print('getting some data', name)
+    return name
 
 @app.route('/record', methods = ['POST', 'GET', 'DELETE'])
 @jwt_required()
 def record():
-    data = request.json
+    name = request.args.get('name')
+    response = ""
     if request.method == 'POST':
-        saveRecord(data['name'], data['frameData'])
+        data = request.json
+        saveRecord(name, data['frameData'])
     elif request.method == 'GET':
-        getRecord(data['name'])
+        response = getRecord(name)
     elif request.method == 'DELETE':
-        deleteRecord(data['name'])
-    return 200
+        response = deleteRecord(name)
+    return response, 200
         
 @app.route('/listRecords')
 @jwt_required()
